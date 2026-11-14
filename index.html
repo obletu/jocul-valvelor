@@ -244,19 +244,7 @@ input[type=range]:focus-visible { outline: 2px solid var(--accent); outline-offs
 
   <main class="stage" id="viewPlay">
     <section class="cardcol" aria-label="Rhythm card">
-       
-       <div class="player">
-        <button class="playbtn" id="play" type="button" aria-label="Start the first clip">
-          <svg class="i-play" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4.5v15a1 1 0 0 0 1.5.86l12.4-7.5a1 1 0 0 0 0-1.72L8.5 3.64A1 1 0 0 0 7 4.5z"/></svg>
-          <svg class="i-pause" viewBox="0 0 24 24" aria-hidden="true"><rect x="5.5" y="4" width="4.5" height="16" rx="1"/><rect x="14" y="4" width="4.5" height="16" rx="1"/></svg>
-        </button>
-        
-         <button class="btn" id="next" type="button" disabled aria-describedby="lockNote">
-          <svg id="lockIcon" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 10V8a5 5 0 0 1 10 0v2h1a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1v-9a1 1 0 0 1 1-1h1zm2 0h6V8a3 3 0 0 0-6 0v2z"/></svg>
-          <span id="nextLabel">Next</span>
-        </button>
-      </div>
-       
+             
       <div class="cardwrap">
         <div class="card" id="card">
           <div class="face back" aria-hidden="true">
@@ -277,7 +265,6 @@ input[type=range]:focus-visible { outline: 2px solid var(--accent); outline-offs
 
     <section class="panel">
     
-
       <div class="dial" id="dial">
         <div class="row">
           <label for="k"><b>k</b><small>pulses</small></label>
@@ -297,6 +284,18 @@ input[type=range]:focus-visible { outline: 2px solid var(--accent); outline-offs
         </div>
       </div>
 
+       <div class="player">
+        <button class="playbtn" id="play" type="button" aria-label="Start the first clip">
+          <svg class="i-play" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4.5v15a1 1 0 0 0 1.5.86l12.4-7.5a1 1 0 0 0 0-1.72L8.5 3.64A1 1 0 0 0 7 4.5z"/></svg>
+          <svg class="i-pause" viewBox="0 0 24 24" aria-hidden="true"><rect x="5.5" y="4" width="4.5" height="16" rx="1"/><rect x="14" y="4" width="4.5" height="16" rx="1"/></svg>
+        </button>
+        
+         <button class="btn" id="next" type="button" disabled aria-describedby="lockNote">
+          <svg id="lockIcon" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 10V8a5 5 0 0 1 10 0v2h1a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1v-9a1 1 0 0 1 1-1h1zm2 0h6V8a3 3 0 0 0-6 0v2z"/></svg>
+          <span id="nextLabel">Next</span>
+        </button>
+      </div>
+       
       <p class="feedback" id="feedback" role="status" aria-live="polite">Press play to hear the first clip.</p>
 
       <div class="help">
