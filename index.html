@@ -269,7 +269,7 @@ input[type=range]:focus-visible { outline: 2px solid var(--accent); outline-offs
           <svg class="i-pause" viewBox="0 0 24 24" aria-hidden="true"><rect x="5.5" y="4" width="4.5" height="16" rx="1"/><rect x="14" y="4" width="4.5" height="16" rx="1"/></svg>
         </button>
         
-         <button class="btn primary" id="next" type="button" disabled aria-describedby="lockNote">
+         <button class="btn" id="next" type="button" disabled aria-describedby="lockNote">
           <svg id="lockIcon" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 10V8a5 5 0 0 1 10 0v2h1a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1v-9a1 1 0 0 1 1-1h1zm2 0h6V8a3 3 0 0 0-6 0v2z"/></svg>
           <span id="nextLabel">Next</span>
         </button>
@@ -312,10 +312,10 @@ input[type=range]:focus-visible { outline: 2px solid var(--accent); outline-offs
           <div class="time" id="clipNo">Ready</div>
           <div class="time"><span id="elapsed">0:00</span></div>
         </div>
-          <span class="time" id="worth" aria-label="Points available now">+3</span>
-          <span class="rules" id="worthSub">Speed bonus starts when the clip plays.</span>
           <p class="rules" id="lockNote">Next clip unlocks when n and k match the clip.</p>
-        
+          <span class="clipNo" id="worth" aria-label="Points available now">+3</span>
+          <span class="rules" id="worthSub">Speed bonus starts when the clip plays.</span>
+               
       </div>
 
       <article class="reveal" id="reveal" hidden aria-live="polite">
