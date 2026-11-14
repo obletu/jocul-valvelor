@@ -163,6 +163,7 @@ input[type=range]:focus-visible { outline: 2px solid var(--accent); outline-offs
 .btn.primary:disabled { background: transparent; color: var(--ink-2); }
 .btn svg { width: 16px; height: 16px; fill: currentColor; }
 .btn:focus-visible, .playbtn:focus-visible, .link:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+.btn.next { flex: none; width: auto; margin-left: auto; justify-self: end; align-self: center; }
 
 .feedback { margin: 0; min-height: 1.5em; font-weight: 500; }
 .feedback.bad { color: var(--bad); }
@@ -290,7 +291,7 @@ input[type=range]:focus-visible { outline: 2px solid var(--accent); outline-offs
           <svg class="i-pause" viewBox="0 0 24 24" aria-hidden="true"><rect x="5.5" y="4" width="4.5" height="16" rx="1"/><rect x="14" y="4" width="4.5" height="16" rx="1"/></svg>
         </button>
         
-         <button class="btn" id="next" type="button" disabled aria-describedby="lockNote">
+         <button class="btn next" id="next" type="button" disabled aria-describedby="lockNote">
           <svg id="lockIcon" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 10V8a5 5 0 0 1 10 0v2h1a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1v-9a1 1 0 0 1 1-1h1zm2 0h6V8a3 3 0 0 0-6 0v2z"/></svg>
           <span id="nextLabel">Next Vâlvă</span>
         </button>
