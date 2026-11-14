@@ -4,7 +4,7 @@
 Folder layout (next to this script):
   audio/   e{k}-{n}_{Track title}.mp3     e.g. e4-15_Duh_Poteca.mp3
   cards/   e{k}-{n}.webp                  (.png, .jpg also work)
-  rhythms.json                            names, descriptions, mnemonics (edit by hand)
+  rhythms.json                            names, descriptions, mnemonics, seesaw word (edit by hand)
 
 Run:  python3 build_tracks.py
 
@@ -91,15 +91,19 @@ def main():
     for r in ordered:
         rid = r["id"]
         if rid not in new_meta:
-            new_meta[rid] = {"name": "", "description": "", "mnemonic": ""}
+            new_meta[rid] = {"name": "", "description": "", "mnemonic": "", "seesaw": ""}
             print(f"new    {rid}: added an empty entry to rhythms.json")
         info = new_meta[rid]
         r["name"] = info.get("name", "")
         r["description"] = info.get("description", "")
         r["mnemonic"] = info.get("mnemonic", "")
+        r["seesaw"] = info.get("seesaw", "")
         r["card"] = find_card(rid)
         if not r["card"]:
             print(f"warn   {rid}: no card image found in cards/")
+
+    for info in new_meta.values():                 # every entry gets a "seesaw" slot to fill in
+        info.setdefault("seesaw", "")
 
     # keep rhythms.json tidy: sorted by n, then k
     def sort_key(item):

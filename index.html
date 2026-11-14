@@ -9,7 +9,7 @@ body { margin: 0; font: 14px system-ui, sans-serif; }
 img { max-width: 100%; }
 [hidden] { display: none !important; }
 </style>
-<title>Euclidean Ear Test</title>
+<title>Vâlve</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Barlow:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
@@ -129,10 +129,10 @@ h1 { margin: 0; font: 700 clamp(30px, 6vw, 40px)/1 var(--f-display); letter-spac
 .dial { background: var(--surface); border: 1.5px solid var(--line); border-radius: 14px; padding: 18px 18px 16px; display: flex; flex-direction: column; gap: 6px; }
 .dial.shake { animation: shake 0.4s; }
 @keyframes shake { 0%,100% { transform: translateX(0); } 20% { transform: translateX(-7px); } 40% { transform: translateX(6px); } 60% { transform: translateX(-4px); } 80% { transform: translateX(3px); } }
-.row { display: grid; grid-template-columns: 62px minmax(0, 1fr) 58px; align-items: center; gap: 12px; }
+.row { display: grid; grid-template-columns: 45px minmax(0, 1fr) 35px; align-items: center; gap: 6px; }
 .row label { display: flex; flex-direction: column; line-height: 1; }
 .row label b { font: 700 34px/1 var(--f-display); }
-.row label small { font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-2); margin-top: 3px; }
+.row label small { font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-2); margin-top: 3px; }
 .row output { font: 600 40px/1 var(--f-display); text-align: right; font-variant-numeric: tabular-nums; }
 /* both sliders share one pitch (15 positions each), so k's last allowed notch sits right under n's thumb */
 .slider { position: relative; height: 38px; --f: 0; --lim: 1; }
@@ -163,13 +163,16 @@ input[type=range]:focus-visible { outline: 2px solid var(--accent); outline-offs
 .btn.primary:disabled { background: transparent; color: var(--ink-2); }
 .btn svg { width: 16px; height: 16px; fill: currentColor; }
 .btn:focus-visible, .playbtn:focus-visible, .link:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+.btn.next { flex: none; width: auto; margin-left: auto; justify-self: end; align-self: center; }
 
 .feedback { margin: 0; min-height: 1.5em; font-weight: 500; }
 .feedback.bad { color: var(--bad); }
 .feedback.good { color: var(--good); }
 
-.help { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; }
-.misses { display: flex; gap: 14px; align-items: flex-start; padding: 0 4px 18px; margin-left: auto; }
+   .help { display: flex; flex-wrap: wrap; align-items: flex-start; justify-content: flex-start; gap: 8px 10px; padding-bottom: 18px; }
+   .help .btn { padding: 10px 12px; white-space: nowrap; }
+   .misses { display: flex; gap: 8px; align-items: center; align-self: center; margin: 0 4px 0 0; flex: none; }
+   
 .dot { position: relative; width: 12px; height: 12px; border-radius: 50%; border: 1.5px solid var(--ink-2); }
 .dot.on { background: var(--bad); border-color: var(--bad); }
 .dot[data-label]::after { content: attr(data-label); position: absolute; top: 18px; left: 50%; transform: translateX(-50%); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-2); white-space: nowrap; }
@@ -215,8 +218,13 @@ input[type=range]:focus-visible { outline: 2px solid var(--accent); outline-offs
   .player { grid-template-columns: auto minmax(0, 1fr); }
   .worth { grid-column: 1 / -1; flex-direction: row; align-items: center; justify-content: flex-start; gap: 12px; text-align: left; }
   .worth .sub { max-width: none; }
-  .misses { margin-left: 0; width: 100%; padding-bottom: 20px; }
+
   .dial { padding: 14px; }
+}
+@media (max-width: 400px) {
+  .help { gap: 8px; }
+  .help .btn { padding: 9px 10px; font-size: 14px; }
+  .misses { gap: 6px; }
 }
 @media (prefers-reduced-motion: reduce) {
   .card { transition: none; }
@@ -231,19 +239,20 @@ input[type=range]:focus-visible { outline: 2px solid var(--accent); outline-offs
   <header class="masthead">
     <div class="brand">
       <h1>Jocul Vâlvelor</h1>
-      <p>Euclidean Ear Test. Listen to the kick in the loop, then dial in n and k.</p>
+      <p>Listen to (the kick in) the loop, then dial in n and k.</p>
       <nav class="nav" aria-label="Pages"><a href="#play" id="navPlay">Play</a><a href="#about" id="navAbout">About</a></nav>
     </div>
     <div class="score" aria-label="Scoreboard">
-      <div class="stat"><span class="lbl">Score</span><span class="val" id="score">0</span></div>
-      <div class="stat"><span class="lbl">Streak</span><span class="val" id="streak">0</span></div>
-      <div class="stat"><span class="lbl">Best</span><span class="val" id="best">0</span></div>
+      <div class="stat"><span class="lbl">Score</span><span class="eq" id="score">0</span></div>
+      <div class="stat"><span class="lbl">Streak</span><span class="eq" id="streak">0</span></div>
+      <div class="stat"><span class="lbl">Best</span><span class="eq" id="best">0</span></div>
       <button class="link" id="reset" type="button">New game</button>
     </div>
   </header>
 
   <main class="stage" id="viewPlay">
     <section class="cardcol" aria-label="Rhythm card">
+             
       <div class="cardwrap">
         <div class="card" id="card">
           <div class="face back" aria-hidden="true">
@@ -263,21 +272,7 @@ input[type=range]:focus-visible { outline: 2px solid var(--accent); outline-offs
     </section>
 
     <section class="panel">
-      <div class="player">
-        <button class="playbtn" id="play" type="button" aria-label="Start the first clip">
-          <svg class="i-play" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4.5v15a1 1 0 0 0 1.5.86l12.4-7.5a1 1 0 0 0 0-1.72L8.5 3.64A1 1 0 0 0 7 4.5z"/></svg>
-          <svg class="i-pause" viewBox="0 0 24 24" aria-hidden="true"><rect x="5.5" y="4" width="4.5" height="16" rx="1"/><rect x="14" y="4" width="4.5" height="16" rx="1"/></svg>
-        </button>
-        <div class="pmeta">
-          <div class="clipno" id="clipNo">Ready</div>
-          <div class="time"><span id="elapsed">0:00</span> listening</div>
-        </div>
-        <div class="worth">
-          <span class="pill" id="worth" aria-label="Points available now">+3</span>
-          <span class="sub" id="worthSub">Speed bonus starts when the clip plays.</span>
-        </div>
-      </div>
-
+    
       <div class="dial" id="dial">
         <div class="row">
           <label for="k"><b>k</b><small>pulses</small></label>
@@ -297,20 +292,36 @@ input[type=range]:focus-visible { outline: 2px solid var(--accent); outline-offs
         </div>
       </div>
 
+       <div class="player">
+        <button class="playbtn" id="play" type="button" aria-label="Start the first clip">
+          <svg class="i-play" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4.5v15a1 1 0 0 0 1.5.86l12.4-7.5a1 1 0 0 0 0-1.72L8.5 3.64A1 1 0 0 0 7 4.5z"/></svg>
+          <svg class="i-pause" viewBox="0 0 24 24" aria-hidden="true"><rect x="5.5" y="4" width="4.5" height="16" rx="1"/><rect x="14" y="4" width="4.5" height="16" rx="1"/></svg>
+        </button>
+        
+         <button class="btn next" id="next" type="button" disabled aria-describedby="lockNote">
+          <svg id="lockIcon" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 10V8a5 5 0 0 1 10 0v2h1a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1v-9a1 1 0 0 1 1-1h1zm2 0h6V8a3 3 0 0 0-6 0v2z"/></svg>
+          <span id="nextLabel">Next Vâlvă</span>
+        </button>
+      </div>
+       
       <p class="feedback" id="feedback" role="status" aria-live="polite">Press play to hear the first clip.</p>
 
       <div class="help">
-        <button class="btn" id="hint" type="button" disabled>Hint: show n</button>
+         <div class="misses" id="misses" aria-label="Misses so far"></div>
+        <button class="btn" id="hint" type="button" disabled>Hint (n)</button>
         <button class="btn" id="giveup" type="button" disabled>Give up</button>
-        <div class="misses" id="misses" aria-label="Misses so far"></div>
+        
       </div>
 
       <div class="nextrow">
-        <button class="btn primary" id="next" type="button" disabled aria-describedby="lockNote">
-          <svg id="lockIcon" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 10V8a5 5 0 0 1 10 0v2h1a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1v-9a1 1 0 0 1 1-1h1zm2 0h6V8a3 3 0 0 0-6 0v2z"/></svg>
-          <span id="nextLabel">Next clip</span>
-        </button>
-        <p class="locknote" id="lockNote">Unlocks when n and k match the clip.</p>
+        <div class="pmeta">
+          <div class="time" id="clipNo">Ready</div>
+          <div class="time"><span id="elapsed">0:00</span></div>
+        </div>
+          <p class="rules" id="lockNote">Next Vâlvă unlocks when n and k match the clip.</p>
+          <span class="clipNo" id="worth" aria-label="Points available now">+3</span>
+          <span class="rules" id="worthSub">Speed bonus starts when the clip plays.</span>
+               
       </div>
 
       <article class="reveal" id="reveal" hidden aria-live="polite">
@@ -320,6 +331,7 @@ input[type=range]:focus-visible { outline: 2px solid var(--accent); outline-offs
         <p class="desc" id="rvDesc" hidden></p>
         <dl>
           <dt id="rvMnLbl">Mnemonic</dt><dd id="rvMn"></dd>
+           <div class="fact"><span class="flbl">Cosmic Seesaw</span><span class="fval" id="rvSeesaw"></span></div>
         </dl>
       </article>
 
@@ -330,13 +342,14 @@ input[type=range]:focus-visible { outline: 2px solid var(--accent); outline-offs
   <section class="about" id="viewAbout" hidden aria-label="About">
     <div class="about-body">
       <h2>About Vâlve</h2>
-      <p class="lead">A listening game. Each round plays a two-minute loop from the albums on Bandcamp, and you work out its Euclidean rhythm: how many steps it divides into (n) and how many of them carry a pulse (k).</p>
+      <p class="lead">A listening game. Each round plays a two-minute loop from the my Bandcamp, and you work out its Euclidean rhythm: how many steps it divides into (n) and how many of them carry a pulse (k).</p>
       <p>A Euclidean rhythm E(k,n) spreads k pulses as evenly as it can over n steps. E(3,8) is <span class="mono">x..x..x.</span> and E(5,8) is <span class="mono">x.xx.xx.</span> Any rotation of a pattern is the same rhythm, so the sliders only ask for k and n.</p>
       <p>Every rhythm is a card in the deck, named after a figure from Romanian folklore and mythology. Solve the clip and the card turns over, with a few lines on who it is and a mnemonic to say along with the loop: one syllable per step, capitals where the pulses fall.</p>
-      <h3>Elsewhere</h3>
+      <p>"Vâlvă" is a folkloric term in Romanian tradition referring to a guardian spirit, protective essence, or spiritual guardian of things—each being, place, or concept is believed to have its own spiritual guardian or animating force.</p>
+       <h3>Elsewhere</h3>
       <ul class="links">
-        <li><a id="lnkBandcamp">Bandcamp</a><span>The albums these clips come from, and the physical Vâlve card deck.</span></li>
-        <li><a id="lnkSubstack">Substack</a><span>The essays these descriptions come from, and more.</span></li>
+        <li><a id="lnkBandcamp">Bandcamp</a><span>Where the clips come from + physical Vâlve cards!</span></li>
+        <li><a id="lnkSubstack">Substack</a><span>Where the descriptions come from, and more.</span></li>
       </ul>
     </div>
   </section>
@@ -357,6 +370,7 @@ input[type=range]:focus-visible { outline: 2px solid var(--accent); outline-offs
     score: $('score'), streak: $('streak'), best: $('best'), reset: $('reset'),
     reveal: $('reveal'), rvEq: $('rvEq'), rvTitle: $('rvTitle'), rvName: $('rvName'), rvChip: $('rvChip'),
     rvDesc: $('rvDesc'), rvMnLbl: $('rvMnLbl'), rvMn: $('rvMn'),
+     rvSeesaw: $('rvSeesaw'),
   };
 
   const TIERS = [[10000, 2], [25000, 1]];   // [listening time limit in ms, speed bonus]
@@ -493,7 +507,7 @@ input[type=range]:focus-visible { outline: 2px solid var(--accent); outline-offs
     audio.src = v.file.split('/').map(encodeURIComponent).join('/');   // each part encoded, so # ? % and non-Latin letters are safe
     const p = audio.play();
     if (p && p.catch) p.catch(() => say('Press play to hear the clip.'));
-    say('Listening. Find the number of steps and pulses in the loop.');
+    say('Find the number of steps and pulses in the loop.');
     render();
   }
 
@@ -548,7 +562,7 @@ input[type=range]:focus-visible { outline: 2px solid var(--accent); outline-offs
     S.hinted = true;
     el.n.value = String(S.cur.r.n); el.n.disabled = true;
     renderGuess();
-    say(`n is ${S.cur.r.n}. Now find k. The speed bonus is gone for this clip.`);
+    say(`n is ${S.cur.r.n}. Now find k. No speed bonus for this one.`);
     render();
   }
 
@@ -570,6 +584,7 @@ input[type=range]:focus-visible { outline: 2px solid var(--accent); outline-offs
     if (r.description) { el.rvDesc.textContent = r.description; el.rvDesc.hidden = false; } else { el.rvDesc.hidden = true; }
     if (r.mnemonic) { el.rvMnLbl.textContent = 'Mnemonic'; renderMnemonic(r.mnemonic); }
     else { el.rvMnLbl.textContent = 'Say it'; el.rvMn.textContent = syllables(gaps); }
+      el.rvSeesaw.textContent = r.seesaw || '—';
     el.reveal.hidden = false;
 
     el.front.innerHTML = '';
@@ -623,7 +638,7 @@ input[type=range]:focus-visible { outline: 2px solid var(--accent); outline-offs
     const unlocked = S.phase === 'revealed' || S.error;
     el.next.disabled = !unlocked;
     el.lockIcon.style.display = unlocked ? 'none' : '';
-    el.lockNote.textContent = unlocked ? (S.error ? 'This clip failed, so nothing is scored.' : 'Unlocked.') : 'Unlocks when n and k match the clip.';
+    el.lockNote.textContent = unlocked ? (S.error ? 'This clip failed, so nothing is scored.' : 'Unlocked.') : 'Next Vâlvă unlocks when n and k match the clip.';
     el.clipNo.textContent = S.phase === 'idle' ? 'Ready' : `Clip ${S.clipNo}`;
     setPlayLabel();
 
