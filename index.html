@@ -169,8 +169,10 @@ input[type=range]:focus-visible { outline: 2px solid var(--accent); outline-offs
 .feedback.bad { color: var(--bad); }
 .feedback.good { color: var(--good); }
 
-.help { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; }
-.misses { display: flex; gap: 14px; align-items: flex-start; padding: 0 4px 18px; margin-left: auto; }
+   .help { flex-wrap: nowrap; gap: 8px; }
+   .help .btn { padding: 10px 12px; white-space: nowrap; }
+   .misses { margin-left: auto; width: auto; flex: none; gap: 8px; padding-bottom: 0; }
+   
 .dot { position: relative; width: 12px; height: 12px; border-radius: 50%; border: 1.5px solid var(--ink-2); }
 .dot.on { background: var(--bad); border-color: var(--bad); }
 .dot[data-label]::after { content: attr(data-label); position: absolute; top: 18px; left: 50%; transform: translateX(-50%); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-2); white-space: nowrap; }
