@@ -331,6 +331,7 @@ input[type=range]:focus-visible { outline: 2px solid var(--accent); outline-offs
         <p class="desc" id="rvDesc" hidden></p>
         <dl>
           <dt id="rvMnLbl">Mnemonic</dt><dd id="rvMn"></dd>
+           <div class="fact"><span class="flbl">Cosmic Seesaw</span><span class="fval" id="rvSeesaw"></span></div>
         </dl>
       </article>
 
@@ -369,6 +370,7 @@ input[type=range]:focus-visible { outline: 2px solid var(--accent); outline-offs
     score: $('score'), streak: $('streak'), best: $('best'), reset: $('reset'),
     reveal: $('reveal'), rvEq: $('rvEq'), rvTitle: $('rvTitle'), rvName: $('rvName'), rvChip: $('rvChip'),
     rvDesc: $('rvDesc'), rvMnLbl: $('rvMnLbl'), rvMn: $('rvMn'),
+     rvSeesaw: $('rvSeesaw'),
   };
 
   const TIERS = [[10000, 2], [25000, 1]];   // [listening time limit in ms, speed bonus]
@@ -582,6 +584,7 @@ input[type=range]:focus-visible { outline: 2px solid var(--accent); outline-offs
     if (r.description) { el.rvDesc.textContent = r.description; el.rvDesc.hidden = false; } else { el.rvDesc.hidden = true; }
     if (r.mnemonic) { el.rvMnLbl.textContent = 'Mnemonic'; renderMnemonic(r.mnemonic); }
     else { el.rvMnLbl.textContent = 'Say it'; el.rvMn.textContent = syllables(gaps); }
+      el.rvSeesaw.textContent = r.seesaw || '—';
     el.reveal.hidden = false;
 
     el.front.innerHTML = '';
